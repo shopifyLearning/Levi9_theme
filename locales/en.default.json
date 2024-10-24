@@ -1,5 +1,9 @@
 {
-    "General": {
-        "add_to_cart": "Add to cart"
+    "general": {
+        "add_to_cart": "Add to cart",
+        "404": {
+            "title": "Page not found",
+            "subtext_html": "Sorry, the page you are looking for cannot be found."
+        }
     }
 }
