@@ -27,6 +27,18 @@
               "text": "<p>Subscribe to receive updates, access to exclusive deals, and more.</p>"
             }
           },
+          "navigation_AHKW4z": {
+            "type": "navigation",
+            "settings": {
+              "linklist": "footer"
+            }
+          },
+          "navigation_NjPg7H": {
+            "type": "navigation",
+            "settings": {
+              "linklist": "main-menu"
+            }
+          },
           "text_F33akc": {
             "type": "text",
             "settings": {
@@ -37,10 +49,12 @@
         },
         "block_order": [
           "newsletter_RncRwd",
+          "navigation_AHKW4z",
+          "navigation_NjPg7H",
           "text_F33akc"
         ],
         "settings": {
-          "copyright": ""
+          "copyright": "@Deki and Maki Shop"
         }
       }
     },
