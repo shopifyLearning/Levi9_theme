@@ -117,3 +117,110 @@ li {
     font-size: 12px;
     margin-bottom: 10px;
 }
+/* Base Styles */
+.contact {
+  padding: 60px 15px;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.contact-form {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  text-align: left; /* Left-align content */
+}
+
+/* Heading */
+.contact-form h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+/* Input and Textarea Group */
+.contact-form div {
+  margin-bottom: 15px;
+}
+
+/* Label Styles */
+.contact-form label {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #555;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Input and Textarea Styles */
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Input focus effect */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #6a5acd;
+  box-shadow: 0 0 8px rgba(106, 90, 205, 0.2);
+  outline: none;
+}
+
+/* Textarea specific styling */
+.contact-form textarea {
+  resize: none;
+  height: 120px;
+}
+
+/* Button Styles */
+.contact_button {
+  background-color: #6a5acd;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s;
+  width: 100%; /* Make button full width */
+}
+
+/* Button hover and active effects */
+.contact_button:hover {
+  background-color: #483d8b;
+}
+
+.contact_button:active {
+  transform: scale(0.97);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .contact-form {
+    padding: 30px;
+  }
+
+  .contact-form h2 {
+    font-size: 24px;
+  }
+
+  .contact_button {
+    font-size: 16px;
+  }
+}

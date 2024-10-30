@@ -1,0 +1,63 @@
+{
+  "sections": {
+    "contact": {
+      "type": "contact",
+      "blocks": {
+        "input_fG9knr": {
+          "type": "input",
+          "settings": {
+            "name": "First name",
+            "placeholder": "Kurjakov",
+            "label": "First name",
+            "type": "text",
+            "id": "first_name"
+          }        
+        },
+        "input_8nGd96": {
+          "type": "input",
+          "settings": {
+            "name": "Last name",
+            "placeholder": "Kurjakov",
+            "label": "Last name",
+            "type": "text",
+            "id": "last_name"
+          }
+        },
+        "input_eqqGQa": {
+          "type": "input",
+          "settings": {
+            "name": "Email",
+            "placeholder": "kurjakovmarko@gmail.com",
+            "label": "Email",
+            "type": "text",
+            "id": "email"
+          }
+        },
+        "input_Mbb97E": {
+          "type": "input",
+          "settings": {
+            "name": "Message",
+            "placeholder": "Type your message here",
+            "label": "Message",
+            "type": "textarea",
+            "id": "message"
+          }
+        }
+      },
+      "block_order": [
+        "input_fG9knr",
+        "input_fG9kno",
+        "input_8nGd96",
+        "input_eqqGQa",
+        "input_Mbb97E"
+      ],
+      "settings": {
+        "heading": "",
+        "button": "Submit"
+      }
+    }
+  },
+  "order": [
+    "contact"
+  ]
+}
