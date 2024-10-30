@@ -1,0 +1,43 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "show_search": true,
+          "bg": ""
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "newsletter_RncRwd": {
+            "type": "newsletter",
+            "settings": {
+              "heading": "Newsletter",
+              "text": "<p>Subscribe to receive updates, access to exclusive deals, and more.</p>"
+            }
+          }
+        },
+        "block_order": [
+          "newsletter_RncRwd"
+        ],
+        "settings": {
+          "copyright": ""
+        }
+      }
+    },
+    "content_for_index": [
+
+    ]
+  }
+}
