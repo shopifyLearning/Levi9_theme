@@ -26,10 +26,18 @@
               "heading": "Newsletter",
               "text": "<p>Subscribe to receive updates, access to exclusive deals, and more.</p>"
             }
+          },
+          "text_F33akc": {
+            "type": "text",
+            "settings": {
+              "heading": "About the shop",
+              "text": "<p>The story of Leo and Violette, it's ours. We are Léo Dominguez & Violette Polchi. Two Parisian lovers sharing our lives for more than 8 years. Since the early days of our meeting, we always had the dream to develop a project together. Here it is!Thanks toLéo et Violettefor allowing us to use their products in this demo store.</p>"
+            }
           }
         },
         "block_order": [
-          "newsletter_RncRwd"
+          "newsletter_RncRwd",
+          "text_F33akc"
         ],
         "settings": {
           "copyright": ""
