@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "contact": {
@@ -7,17 +16,17 @@
           "type": "input",
           "settings": {
             "name": "First name",
-            "placeholder": "Kurjakov",
+            "placeholder": "Louise Veronica",
             "label": "First name",
             "type": "text",
             "id": "first_name"
-          }        
+          }
         },
         "input_8nGd96": {
           "type": "input",
           "settings": {
             "name": "Last name",
-            "placeholder": "Kurjakov",
+            "placeholder": "Ciccone",
             "label": "Last name",
             "type": "text",
             "id": "last_name"
@@ -46,7 +55,6 @@
       },
       "block_order": [
         "input_fG9knr",
-        "input_fG9kno",
         "input_8nGd96",
         "input_eqqGQa",
         "input_Mbb97E"
