@@ -1,0 +1,39 @@
+{% comment %}
+    For products collection page we specify padding x of 4 and padding y of 8 and to move entire paginate section inside <div>.
+    Also we need <h1> tag for collection title having text a little bigger, i.e. 3xl font size and center it.
+    Below <h1> we need another <div> to specify maximum width of 6xl and center it horizontally.
+    The <div> should contain grid (nested <div>) with 1 column for mobile and 3 columns for desktop.
+    The grid itself should contain for loop to display products inside collection (we moved for loop inside last <div>).
+{% endcomment %}
+<div class="px-4 py-8">
+    {% paginate collection.products by section.settings.number_of_products_per_page %}
+        <h1 class="text-3xl text-center">{{ collection.title }}</h1>
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {% for product in collection.products %}
+                    {% comment %}
+                    This code renders the 'product-card' template, passing the current product as a variable to display its details.
+                    {% endcomment %}
+                    {% render 'product-card', product: product %}
+                {% else %}
+                    <p>There are no products inside this collection</p>
+                {% endfor %}            
+            </div>
+        </div>
+        {% render 'pagination', pagination: paginate %}
+    {% endpaginate %}
+</div>
+
+{% schema %}
+    {
+        "name": "Template Collection",
+        "settings": [
+            {
+                "type": "number",
+                "id": "number_of_products_per_page",
+                "default": 6,
+                "label": "Number of products per page"
+            }
+        ]
+    }
+{% endschema %}
