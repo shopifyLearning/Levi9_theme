@@ -36,7 +36,7 @@
           "type": "input",
           "settings": {
             "name": "Email",
-            "placeholder": "kurjakovmarko@gmail.com",
+            "placeholder": "madonna@gmail.com",
             "label": "Email",
             "type": "text",
             "id": "email"
