@@ -1,0 +1,49 @@
+{% comment %}
+    To display products as cards we need to wrap them inside <div> with class having full width, padding y by 6 and x by 3
+    Inside <div> we need to add <div> with class border and bg-white and rounded-lg to create card effect (white background with large shadow, 
+        rounded corners and hidden overflow).
+    Finally we need to move iside the <div> all \product details (vendor, title, price, image) and add <a> tag to link to product page.
+{% endcomment %}
+<div class="w-full py-6 xp-3">
+    <div class="border bg-white shadow-lg rounded-lg overflow-hidden">
+        {% comment %}
+            To make image responsive we need first to add <a> tag with href to product url and move if section inside <a> tag.
+        {% endcomment %}
+        <a href="{{ product.url }}">
+            {% if product.featured_image %}
+                {% comment %}
+                    ... and second we need to add <div> with class h-80 and overflow-hidden to contain image.
+                    <img> tag will need to be updated with class w-full (width of the image to 100% of its container), 
+                    h-full (height of the image to 100% of its container) and object-cover (ensures that the image covers 
+                    the entire container while maintaining its aspect ratio; it might crop the image if necessary to fill the container)
+                {% endcomment %}
+                <div class="h-80 overflow-hidden">
+                    <!-- Tag's class includes a smooth transition effect that scales the image up slightly when hovered over, creating a zoom-in effect.
+                    When using scale-up we also need to include a transform property to scale the image up by 105% properly when hovered over. -->
+                    <img class="w-full h-full object-cover transition duration-500 ease-in-out hover:scale-105 transform" src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.featured_image.alt }}">
+                </div>
+            {% else %}
+                {% comment %}
+                    This code generates an SVG placeholder for 'product-1' with full width and height, ensuring the image covers the container 
+                    and has a gray background.
+                {% endcomment %}
+                {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover bg-gray-100' }}
+            {% endif %}                            
+        </a>
+        {% comment %}
+            To display product vendor in small text below image we need to update <span> tag with class text-sm and text-gray-400.
+            For product title we need to update <a> tag with href to product url and class uppercase font-medium to make it uppercase.
+            Finally for product price we need to update <p> tag with class text-gray-500 and add | money filter 
+            to display price in currency format.
+            For proper alignment we need to add <div> with class having flex (applies the Flexbox layout to the container, 
+            making it a flex container), flex-col (arranges the items vertically), p-4 (adds padding to all sides of the container)
+            and justify-between (distributes the child elements within the container with space between them, pushing the first child 
+            to the start and the last child to the end of the container).
+        {% endcomment %}
+        <div class="flex flex-col p-4 justify-between">
+            <span class="text-sm text-gray-400">{{ product.vendor }}</span>
+            <a href="{{ product.url }}" class="text-gray-700 uppercase font-medium">{{ product.title }}</a>
+            <p class="text-gray-500">{{ product.price | money }}</p>                             
+        </div> 
+    </div>
+</div>
