@@ -1,0 +1,101 @@
+<section class="contact">
+  <div class="contact-form">
+    {% if section.settings.heading %}
+      <h2>{{ section.settings.heading }}</h2>
+
+    {% endif %}
+
+    {% form 'contact' %}
+      {% if form.posted_successfully? %}
+        <p>Your message has been sent.</p>
+
+      {% elsif form.errors %}
+        {{ form.errors | default_errors }}
+      {% endif %}
+
+      {% for block in section.blocks %}
+        {% if block.type == 'input' and block.settings.type == 'textarea' %}
+          <div>
+            <label for="{{ block.settings.id }}">{{ block.settings.label }}</label>
+            <textarea
+              id="{{ block.settings.id }}"
+              name="contact[{{ block.settings.name }}]"
+              placeholder="{{ block.settings.placeholder }}">
+              {{ form[block.settings.name] }}
+            </textarea>
+          </div>
+        {% elsif block.type == 'input' %}
+          <div>
+            <label for="{{ block.settings.id }}">{{ block.settings.label }}</label>
+            <input
+              type="{{ block.settings.type }}"
+              id="{{ block.settings.id }}"
+              name="contact[{{ block.settings.name }}]"
+              value="{% if form[block.settings.name] %}{{ form[block.settings.name] }}{% endif %}"
+              placeholder="{{ block.settings.placeholder }}">
+          </div>
+        {% endif %}
+
+      {% endfor %}
+
+      <div>
+        <button type="submit" class="contact_button">{{ section.settings.button }}</button>
+      </div>
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Contact Form",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading text"
+      }, {
+        "type": "text",
+        "id": "button",
+        "label": "Button text",
+        "default": "Submit"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Input",
+        "type": "input",
+        "settings": [
+          {
+            "type": "text",
+            "id": "name",
+            "label": "Name"
+          },
+          {
+            "type": "text",
+            "id": "placeholder",
+            "label": "Placeholder"
+          },
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Label"
+          },
+          {
+            "type": "text",
+            "id": "type",
+            "label": "Type"
+          }, {
+            "type": "text",
+            "id": "id",
+            "label": "Id"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Contact Form"
+      }
+    ]
+  }
+{% endschema %}
