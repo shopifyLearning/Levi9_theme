@@ -1,0 +1,68 @@
+<!-- This div container uses Tailwind CSS classes to:
+     - Apply a flexbox layout with a column direction (flex flex-col)
+     - Center its child elements horizontally (items-center)
+     - Add vertical margin of 2rem (my-8) -->
+<div class="flex flex-col items-center my-8">
+    <!-- This h1 element displays the title from the section settings.
+     - It centers the text horizontally (text-center)
+     - Sets the font size to 3xl (text-3xl) using Tailwind CSS classes
+     - Dynamically inserts the title value from the section settings referencing "id": "title" -->
+    <h1 class="text-center text-3xl">{{ section.settings.title }}</h1>
+
+    <!-- This div container uses Tailwind CSS classes to:
+     - Set the maximum width to 6xl (max-w-6xl), which is typically 72rem
+     - Center the div horizontally by setting the left and right margins to auto (mx-auto) -->
+    <div class="max-w-6xl mx-auto">
+
+        <!-- This div container uses Tailwind CSS classes to create a responsive grid layout:
+        - Defines a grid with a single column by default (grid grid-cols-1)
+        - Changes to a four-column grid on medium-sized screens and larger (md:grid-cols-4)
+        - Adds a gap of 1rem between grid items (gap-4) -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {% for product in section.settings.featured_collection.products limit: section.settings.number_of_products_to_show %}
+                <!--
+                    This line renders the 'product-card' snippet, passing the current product object as a parameter. 
+                    It dynamically includes the product card layout and details for the specified product. -->
+                {% render 'product-card', product: product %}
+            
+            {% else %}
+
+                {% for item in (1..section.settings.number_of_products_to_show) %}
+                    {% render 'product-card-placeholder', product: null %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Featured Collection",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "default": "Featured Collection",
+                "label": "Title"
+            },
+            {
+                "type": "collection",
+                "id": "featured_collection",
+                "label": "Collection",
+            },
+            {
+                "type": "range",
+                "id": "number_of_products_to_show",
+                "min": 4,
+                "max": 12,
+                "default": 4,
+                "label": "Number of products to show"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Featured Collection"
+            }
+        ]
+    }
+{% endschema %}

@@ -1,0 +1,93 @@
+<!-- div container with Tailwind CSS classes:
+    - Applies a flexbox layout with a column direction (flex flex-col)
+    - Centers its child elements horizontally (items-center)
+    - Adds vertical padding of 2rem (py-8) -->
+<div class="flex flex-col items-center py-8">
+    <!-- h1 element with Tailwind CSS classes:
+        - Sets the font size to 3xl (text-3xl)
+        - Applies a medium font weight (font-medium)
+        - Dynamically inserts the title from the section settings using Liquid syntax ({{ section.settings.title }}) -->
+    <h1 class="text-3xl font-medium">{{ section.settings.title }}</h1>
+
+    <!-- div container with Tailwind CSS classes:
+        - Sets the maximum width to 6xl (max-w-6xl), which is typically 72rem
+        - Centers the div horizontally by setting the left and right margins to auto (mx-auto)
+        - Adds vertical margin of 0.75rem (my-3) -->
+    <div class="max-w-6xl mx-auto my-3">
+        <!-- Inner div container with Tailwind CSS classes:
+            - Defines a grid with a single column by default (grid grid-cols-1)
+            - Changes to a three-column grid on medium-sized screens and larger (md:grid-cols-3)
+            - Adds a gap of 0.75rem between grid items (gap-3) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {% for collection in collections %}
+                <!-- This conditional statement checks if the collection contains any products.
+                    If the total number of products in the collection (all_products_count) is greater than 0,
+                    the code inside this block will be executed. -->
+                {% if collection.all_products_count > 0 %}
+                    <!-- Outer div container with Tailwind CSS classes:
+                        - Sets the width to 100% (w-full)
+                        - Adds vertical padding of 1.5rem (py-6)
+                        - Adds horizontal padding of 0.75rem (px-3) -->
+                    <div class="w-full py-6 px-3">
+                        <!-- Inner div container with Tailwind CSS classes:
+                            - Adds a border around the element (border)
+                            - Sets the background color to white (bg-white)
+                            - Ensures content that overflows the container is hidden (overflow-hidden) -->
+                        <div class="border bg-white owerflow-hidden">
+                            <!-- Anchor tag that links to the URL of the current collection (collection.url) -->
+                            <a href="{{ collection.url }}">
+                                <!-- This div container uses Tailwind CSS classes to:
+                                    - Set the height to 20rem (h-80)
+                                    - Ensure any content that overflows the container is hidden (overflow-hidden) -->
+                                <div class="h-80 owerflow-hidden">
+                                    <!-- This conditional statement checks if the collection has a featured image.
+                                        - If the collection's featured image is not blank, it assigns the featured image to the variable collection_image.
+                                        - Otherwise, it assigns the featured image of the first product in the collection to the variable collection_image. -->
+                                    {% if collection.featured_image != blank %}
+                                        {% assign collection_image = collection.featured_image %}
+                                    {% else %}
+                                        {% assign collection_image = collection.products.first.featured_image %}
+                                    {% endif %}
+
+                                    <!-- This img element displays the collection image with Tailwind CSS classes:
+                                        - Ensures the image covers the entire container without distortion (object-cover)
+                                        - Sets the width and height to 100% of the container (w-full h-full)
+                                        - Adds a smooth transition effect for transformations over 500ms (transition duration-500 ease-in-out)
+                                        - Scales the image up to 105% when hovered (transform hover:scale-105)
+                                        - Uses Liquid filters to generate the URL for the collection image at a 'medium' size (img_url: 'medium')
+                                        - Provides alternative text for the image using the collection's title with special characters escaped (collection.title | escape) -->
+                                    <img class="object-cover w-full h-full transition duration-500 ease-in-out transform hover:scale-105" 
+                                        src="{{ collection_image | img_url: 'medium' }}" alt="{{ collection.title | escape }}">
+                                </div>
+                            </a>
+
+                            <!-- div container with Tailwind CSS classes:
+                                - Adds padding of 1rem on all sides (p-4)
+                                - Sets the background color to a light gray (bg-gray-100) -->
+                            <div class="p-4 bg-gray-100">
+                                <!-- h1 element with Tailwind CSS classes:
+                                    - Sets the font size to xl (text-xl)
+                                    - Dynamically inserts the collection's title using Liquid syntax ({{ collection.title }}) -->
+                                <h1 class="text-xl">{{ collection.title }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}            
+        </div>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Template List Collections",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "default": "Collections",
+                "label": "Title"
+            }
+        ]
+    }
+{% endschema %}
