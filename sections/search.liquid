@@ -1,0 +1,86 @@
+<section>
+  {% if search.performed %}
+    <h1 class="search-page-title" style="text-align: {{ section.settings.heading_alignment }}">{{ section.settings.search_title }}</h1>
+    <div class="search-product-wrapper">
+      {% for result in search.results %}
+        {% if result.object_type == "product" %}
+          <a href="{{ result.url }}">
+            <img
+              class="center-image"
+              src="{{ result.featured_image | image_url }}"
+              width="300"
+              height="300"
+              alt="{{ result.title }}" />
+            <p class="search-product-main-text">{{ result.title }}</p>
+          </a>
+        {% elsif result.object_type == "article" %}
+          <a href="{{ result.url }}">
+            <img
+              class="search-center-image"
+              src="{{ result.featured_image | image_url }}"
+              width="300"
+              height="300"
+              alt="{{ result.title }}" />
+          </a>
+
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="Nothing">
+      <h1>Nothing found</h1>
+      <a href="/">Go back</a>
+    </div>
+  {% endif %}
+</section>
+<style>  
+  .Nothing{
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  margin-top: -300px;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Search",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "search_title"
+      }, {
+        "type": "select",
+        "label": "Heading Alignment",
+        "id": "heading_alignment",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          }, {
+            "value": "center",
+            "label": "Center"
+          }, {
+            "value": "right",
+            "label": "Right"
+          }
+
+        ],
+        "default": "center"
+      }
+
+    ],
+
+    "presets": [
+      {
+        "name": "Search"
+
+      }
+    ]
+  }
+{% endschema %}

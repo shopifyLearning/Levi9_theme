@@ -1,0 +1,14 @@
+{
+    "sections": {
+      "search": {
+        "type": "search",
+        "settings": {
+          "search_title": "",
+          "heading_alignment": "center"
+        }
+      }
+    },
+    "order": [
+      "search"
+    ]
+  }
