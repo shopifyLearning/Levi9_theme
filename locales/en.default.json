@@ -5,5 +5,11 @@
             "title": "Page not found",
             "subtext_html": "Sorry, the page you are looking for cannot be found."
         }
-    }
+    },
+    "search": {
+        "search": "Search",
+        "reset": "Clear search term"
+      },
+      
+
 }
