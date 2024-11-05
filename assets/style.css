@@ -1,3 +1,33 @@
+/* ANNOUNCMENT BAR*/
+
+.announcement-bar {
+  background-color: rgb(226, 226, 226);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px 0 30px;
+}
+
+.announcement-bar-left-section {
+  display: flex;
+  align-items: center;
+}
+
+.announcement-bar-inner-list {
+  display: flex;
+}
+
+.announcement-bar-inner-list li {
+  list-style-type: none;
+  font-size: 15px;
+  padding: 10px;
+  color: #000000;
+  font-weight: bold;
+}
+
+.announcement-bar-inner-list a {
+  text-decoration: none;
+  color: inherit;
+}
 .search.nav form {
   display: flex;
   align-items: center;
