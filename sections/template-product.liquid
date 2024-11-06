@@ -1,0 +1,370 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@7/swiper-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@7/swiper-bundle.min.js"></script>
+
+<!-- Assign the selected or first available variant of the product to a variable -->
+{% assign selected_variant = product.selected_or_first_available_variant %}
+
+<style>
+    /* Styles for Swiper navigation buttons:
+     - Sets the color of the previous and next buttons to black
+     - Overrides the top position with auto and sets the height to 20px */
+    .swiper-button-prev, .swiper-button-next { color: black; top: auto !important; height: 20px; }
+    /* Styles for the icons inside the Swiper navigation buttons:
+     - Sets the font size of the icons to 20px */
+    .swiper-button-prev::after, .swiper-button-next::after { font-size: 20px; }
+    /* Styles for Swiper pagination:
+     - Sets the color of the pagination to black
+     - Overrides the bottom position with 0 */
+    .swiper-pagination { color: black; bottom: 0 !important; }
+    /* Styles for the active pagination bullet:
+     - Sets the background color of the active bullet to black */
+    .swiper-pagination-bullet-active { background: black !important; }
+    /* Sets the height of elements with the class 'product--information' to fit the content */
+    .product--information { height: fit-content; }
+</style>
+
+<!-- div container with Tailwind CSS classes:
+     - Sets the maximum width to 6xl (max-w-6xl), which is typically 72rem
+     - Centers the div horizontally by setting the left and right margins to auto (mx-auto)
+     - Adds vertical margin of 2rem (my-8) -->
+<div class="max-w-6xl mx-auto my-8">
+    <!-- div container with Tailwind CSS classes:
+        - Defines a grid with a single column by default (grid grid-cols-1) suitable for mobile devices
+        - Changes to a two-column grid on medium-sized screens and larger (md:grid-cols-2)
+        - Adds a gap of 0.75rem between grid items (gap-3) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="product--medias">
+            <!-- Inner div container with Tailwind CSS classes:
+                - Hides the element on small screens and displays it as a block on medium-sized screens and larger (hidden md:block) -->
+            <div class="hidden md:block">
+                <!-- Liquid for loop to iterate over each media item in the product's media array (product.media) -->
+                {% for media in product.media %}
+                    <!-- Inner div container with Tailwind CSS classes:
+                        - Sets the height to 20rem (h-80)
+                        - Ensures any content that overflows the container is hidden (overflow-hidden)
+                        - Adds padding of 0.5rem on all sides (p-2) -->
+                    <div class="h-80 overflow-hidden p-2">
+                        <!-- Renders the 'product-media' snippet for each media item, passing the current media object as a parameter (media: media) -->
+                        {% render 'product-media', media: media %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Outer div container with Tailwind CSS classes:
+                - Hides the element on medium-sized screens and larger (md:hidden) -->
+            <div class="md:hidden">
+                <!-- Swiper container with a custom height class (h-94) -->
+                <div class="swiper h-94">
+                    <!-- Swiper wrapper to contain all the slides -->
+                    <div class="swiper-wrapper">
+                        <!-- Liquid for loop to iterate over each media item in the product's media array (product.media) -->
+                        {% for media in product.media %}
+                            <!-- Swiper slide container for each media item -->
+                            <div class="swiper-slide">
+                                <!-- div container with Tailwind CSS classes:
+                                    - Sets the height to 20rem (h-80)
+                                    - Ensures any content that overflows the container is hidden (overflow-hidden)
+                                    - Adds padding of 0.5rem on all sides (p-2) -->
+                                <div class="h-80 overflow-hidden p-2">
+                                    <!-- Renders the 'product-media' snippet for each media item, passing the current media object as a parameter (media: media) -->
+                                    {% render 'product-media', media: media %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Swiper pagination container -->
+                    <div class="swiper-pagination"></div>
+                    <!-- Swiper navigation buttons for previous and next slides -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Div container with Tailwind CSS classes:
+            - Applies a custom class name (product--information)
+            - Makes the element sticky, so it stays fixed within its parent container when scrolling (sticky)
+            - Positions the sticky element 1.25rem from the top of the viewport (top-5)
+            - Adds padding of 0.5rem on all sides (p-2) -->
+        <div class="product--information sticky top-5 p-2">
+
+            <!-- Renders the 'product-description' snippet for the product, 
+                passing the product object as a parameter (product: product) and define id and novalidate attributes -->
+            {% form 'product', product, id: 'product-form', novalidate: 'novalidate' %}
+
+                <!-- Hidden input field to store the product selected or first available variant ID -->
+                <input type="hidden" name="id" value="{{ selected_variant.id }}">
+
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                        {% when 'vendor' %}
+                            <!-- Container for the vendor information with margin on the y-axis -->
+                            <div class="my-3">
+                                <!-- Span element to display the product vendor in small, gray text -->
+                                <span class="text-xs text-gray-500">{{ product.vendor }}</span>
+                            </div>                           
+                        
+                        {% when 'title' %}
+                            <!-- Container for the product title with margin on the y-axis -->
+                            <div class="my-3">
+                                <!-- H1 element to display the product title in large, white text -->
+                                <h1 class="text-3xl text-gray-900">{{ product.title }}</h1>
+                            </div>
+                        
+                        {% when 'price' %}
+                            <!-- Container for the product price with margin on the y-axis and id attribute -->
+                            <div class="my-3" id="price-{{ section.id}}">
+                                <!-- Display the original price of the product, struck through, in base size and gray text -->
+                                <span class="text-base text-gray-500 line-through">{{ selected_variant.compare_at_price | money }}</span>
+                                <!-- Display the current, selling price of the product in larger size and dark gray text -->
+                                <span class="text-lg text-gray-900">{{ selected_variant.price | money }}</span>
+                                <!-- If the current price is lower than the original price ...-->
+                                {% if selected_variant.price < selected_variant.compare_at_price %}
+                                    <!--... display a ‘Sale’ badge with padding (px-5 py-1), small text (text-sm), bold font (font-bold), 
+                                            red background (bg-red-500), white text (text-white), rounded corners (rounded-full), 
+                                            and margin on the x-axis (mx-4) -->
+                                    <span class="px-5 py-1 text-sm font-bold bg-red-500 text-white rounded-full mx-4">{{ 'Sale' }}</span>
+                                {% endif %}
+                            </div>
+                            
+                        {% when 'variant_selector' %}
+                            <!-- Container for the product options with margin on the y-axis -->
+                            <div class="my-3">
+                                <!-- Check if the product has more than one variant, ...-->
+                                {% unless product.has_only_default_variant %}
+                                    <!--... and if so, loop over each option and its values, ...-->
+                                    <variant-selector data-url="{{ product.url }}" data-section="{{ section.id }}">
+                                        <!-- ... and render the 'product-option' snippet for each option, passing the current option and its values 
+                                                as parameters (option: option) -->
+                                        {% for option in product.options_with_values %}
+                                            <!-- Label element to display the option name in small, gray text -->
+                                            <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+                                            <!-- Select element to display the option values in a dropdown menu, -->
+                                            <div class="my-2">
+                                                <!-- ... with the current option selected by default (selected: option.selected_value) -->
+                                                <select 
+                                                    name="options[{{ option.name | escape }}]" 
+                                                    id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                                                    class="w-full border py-3 px-3">
+                                                    <!-- Loop through each value of the current option -->
+                                                    {% for value in option.values %}
+                                                        <!-- Option element for each value, with selected attribute if it's the selected value -->
+                                                        <option value="{{ value | escape }}"
+                                                            {% if option.selected_value == value %}
+                                                                selected="selected"
+                                                            {% endif %}>
+                                                            {{ value }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <script type="application/json">
+                                                {{ product.variants | json }}
+                                            </script>
+                                        {% endfor %}
+                                    </variant-selector>
+                                {% endunless %}
+                            </div>
+
+                        {% when 'quantity' %}
+                            <!-- Container for the product quantity with margin on the y-axis -->
+                            <div class="my-3">
+                                <!-- Label element to display the quantity label in small, gray text -->
+                                <label for="Quantity-{{ section.id }}">Quantity</label>
+
+                                <!-- Input element to display the quantity input field, with a default value of 1, a minimum value of 1, and a border and padding -->
+                                <div class="my-2">
+                                    <input type="number" name="quantity" id="Quantity-{{ section.id }}" value="1" min="1" class="w-full border py-3 px-3">
+                                </div>
+                            </div>
+                        
+                        {% when 'description' %}
+                            <!-- Container for the product description with margin on the y-axis -->
+                            <div class="my-3">
+                                <!-- P element to display the product description in small, gray text -->
+                                <p class="text-sm text-gray-700">{{ product.description }}</p>
+                            </div>
+
+                        {% when 'checkout_buttons' %}
+                            <!-- Container for the add to cart button with margin on the y-axis -->
+                            <div class="my-3">
+                                <!-- Button element to add the product to the cart, disable it if no variant is selected or available -->
+                                <button type="submit" name="add" class="w-full px-6 py-4 bg-gray-900 text-white hover:bg-gray-700 rounded-sm my-2"
+                                        {% if selected_variant.available == false %}
+                                            disabled
+                                        {% endif %}
+                                    >
+                                    <!-- Display 'Sold out' if the selected variant is not available, otherwise 'Add to cart' -->
+                                    {% if selected_variant.available == false %}
+                                        Sold out
+                                    {% else %}
+                                        Add to cart
+                                    {% endif %}
+                                </button>
+                            </div>
+
+                    {% endcase %}
+
+                {% endfor %}
+
+            {% endform %}
+
+        </div>
+    </div>
+</div>
+
+<!-- Initializes a new Swiper instance for elements with the class 'swiper' -->
+<script>
+    const swiper = new Swiper('.swiper', {
+        // Sets the direction of the Swiper to horizontal
+        direction: 'horizontal',
+        // Configures the pagination
+        pagination: {
+            // Specifies the pagination element and makes it clickable
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        // Configures the navigation buttons
+        navigation: {
+            // Specifies the previous and next button elements
+            prevEl: '.swiper-button-prev',
+            nextEl: '.swiper-button-next'            
+        },
+    }); 
+</script>
+
+<script>
+    // Custom HTML element class definition for handling variant selection
+    class VariantSelector extends HTMLElement {
+        // Constructor method for the VariantSelector class
+        constructor() {
+            super(); // calls the constructor of the parent class (HTMLElement), ensuring the custom element is properly initialized.
+            /* adds an event listener to the element that listens for the change event. 
+                When the event occurs, it calls the onVariantChange method, 
+                which you would define elsewhere in the class to handle the event.*/
+            this.addEventListener("change", this.onVariantChange);
+        }
+
+        onVariantChange() {
+            this.getSelectedOptions(); //calls a method to retrieve the currently selected options
+            this.getSelectedVariant(); //calls a method to retrieve the variant that matches the selected options
+
+            if(this.currentVariant) { 
+                //if a valid variant is selected ...
+                this.updateURL(); //updates the URL with the selected variant ID
+                this.updateFormID(); //updates the form input field with the selected variant ID
+                this.updatePrice(); //updates the price of the product with the selected variant ID
+            }
+        }
+
+        getSelectedOptions() {
+            /*  creates an array of the selected values from all <select> elements within the component. 
+                It uses Array.from to convert the NodeList returned by querySelectorAll into an array, 
+                and the arrow function (select) => select.value to extract the value of each <select> element. */            
+            this.options = Array.from(this.querySelectorAll('select'), (select) => select.value);
+            console.log(this.options);
+        }
+
+        getVariantJSON() {
+            /* checks if variantData is already defined. If it is not, it finds the <script> tag with type="application/json", 
+                retrieves its text content, and parses it as JSON to initialize variantData then returns the parsed variant data */
+            this.variantData = this.variantData || JSON.parse(this.querySelector('script[type="application/json"]').textContent);
+            return this.variantData;
+        }
+
+        // Method to find and set the currently selected variant based on selected options
+        getSelectedVariant() {
+            // retrieves the variant data and uses the find method to locate the variant that matches the selected options
+            this.currentVariant = this.getVariantJSON().find((variant) => {
+                /* maps through the variant options and compares each one with the corresponding selected option. 
+                    It checks if all options match by ensuring that the array does not include false */
+                const findings = !variant.options.map((option, index) => {
+                    return this.options[index] === option;
+                }).includes(false);
+
+                //If all options match, the method returns the matching variant
+                if(findings) return variant;
+            });
+            
+            console.log(this.currentVariant);
+        }
+
+        //updates the browser’s URL to include the selected variant ID
+        updateURL() {
+            //If no variant is selected, the method exits early
+            if(!this.currentVariant) return;
+            //updates the URL in the browser’s address bar to include the selected variant ID, without reloading the page
+            window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`);
+        }
+
+        //updates the form input with the selected variant ID
+        updateFormID() {
+            //finds the input element within the form that has the name attribute “id”
+            const form_input = document.querySelector("#product-form").querySelector('input[name="id"]');
+            //sets the value of the input element to the selected variant ID
+            form_input.value = this.currentVariant.id;
+        }
+
+        //updates the displayed price based on the selected variant
+        updatePrice() {
+            // Fetch the updated HTML content for the selected variant from server, and update the price element with the new content
+            fetch(`${this.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.dataset.section}`)
+                .then((response) => response.text())
+                .then((responseText) => { //processes the response text
+                    const id = `price-${this.dataset.section}` //creates a unique ID for the price element based on the section ID
+                    const html = new DOMParser().parseFromString(responseText, "text/html"); //parses the fetched HTML content into a DOM object
+
+                    const oldPrice = document.getElementById(id); //gets the old price element from the current document
+                    const newPrice = html.getElementById(id); //gets the new price element from the fetched HTML content
+
+                    //If both old and new price elements exist, this updates the old price element with the new price content
+                    if(oldPrice && newPrice) oldPrice.innerHTML = newPrice.innerHTML;
+                });
+        }
+    }
+
+    // Defines a custom element for the variant selector
+    customElements.define("variant-selector", VariantSelector);
+</script>
+
+{% schema %}
+    {
+        "name": "Product",
+        "blocks": [
+            {
+                "type": "vendor",
+                "name": "Vendor",
+                "limit": 1
+            },
+            {
+                "type": "title",
+                "name": "Title",
+                "limit": 1
+            },
+            {
+                "type": "price",
+                "name": "Price",
+                "limit": 1
+            },
+            {
+                "type": "variant_selector",
+                "name": "Variant Selector",
+                "limit": 1
+            },
+            {
+                "type": "quantity",
+                "name": "Quantity",
+                "limit": 1
+            },
+            {
+                "type": "description",
+                "name": "Description",
+                "limit": 1
+            },
+            {
+                "type": "checkout_buttons",
+                "name": "Checkout Buttons",
+                "limit": 1
+            }
+        ]
+    }
+{% endschema %}
