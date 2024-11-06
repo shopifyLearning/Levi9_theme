@@ -15,7 +15,9 @@
 <body>
     {% section 'announcement-bar' %}
     {% section 'header' %}
-    {% section 'promotions' %}  
+    {% if template.name == 'index' %}
+        {% section 'promotions' %}
+    {% endif %}
     {{ content_for_layout }}
     {% section 'footer' %}
 </body>

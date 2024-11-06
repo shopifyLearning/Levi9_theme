@@ -14,7 +14,7 @@
             width="35"
             height="35"
             loading="lazy"
-            src="{{ 'logo.jpg' | asset_url }}"
+            src="{{ 'logo_black.png' | asset_url }}"
           >
         {%- endif -%}
       </div>
@@ -57,6 +57,10 @@
     color: {{ section.settings.text_color }}
     ;
   }
+  .announcement-bar-left-section{
+    margin-left: 18px;
+  }
+
 </style>
 
 {% schema %}

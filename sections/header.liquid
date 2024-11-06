@@ -5,7 +5,12 @@
 
           
           <div class="flex justify-start lg:flex-1 truncate">
-            <h1 class="text-xl font-bold truncate">{{ shop.name }}</h1>
+            <img
+            width="80"
+            height="80"
+            loading="lazy"
+            src="{{ 'logo_shop.png' | asset_url }}"
+          >
           </div>
 
           <nav x-data="{ open: false }" class="hidden md:flex space-x-10">
@@ -39,42 +44,28 @@
                     </div>                     
                 {% endif %}
             {% endfor %}
-          </nav>
-          <div class="search nav">
-            {% if section.settings.show_search %}
-            <form action="/search">
-            <input
-              class="search-nav"
-              placeholder="Find product"
-              type="search"
-              name="q">
-              <div>
-              <button type="submit" class="search_button">Search</button>
-             </div>
-          </form>
-        {% endif %}
-        </div>
-          
+          </nav>          
           <!-- CART BUTTON / ACCOUNT LINKS IF ENABLED -->
           <div class="hidden md:flex items-center justify-end md:flex-1 space-x-5">
+            <div class="search nav">
+              {% if section.settings.show_search %}
+              <form action="/search">
+              <input
+                class="search-nav"
+                placeholder="Find product"
+                type="search"
+                name="q">
+                <div>
+                <button type="submit" class="search_button">Search</button>
+               </div>
+            </form>
+          {% endif %}
+          </div>
               <a href="{{ routes.cart_url }}" class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900">
                   {% render 'icon-shopping-bag' %}
               </a>
-
-              {% if shop.customer_accounts_enabled %}
-                  {% if customer %}
-                      <a href="{{ routes.account_url }}" class="text-base text-gray-500 hover:text-gray-900">account</a>
-                      {{ 'Log out'  | customer_logout_link | replace: '<a', '<a class="text-base text-gray-500 hover:text-gray-900"' }}
-                  {% else %}
-                      {{ 'Log in ' | customer_login_link | replace: '<a', '<a class="text-base text-gray-500 hover:text-gray-900"' }}
-                      {{ 'Register' | customer_register_link | replace: '<a', '<a class="text-base text-gray-500 hover:text-gray-900"' }}
-                  {% endif %}
-              {% endif %}
           </div>       
-           
-         
-          
-      </div>
+        </div>
     </div>
   </div>
 </header>

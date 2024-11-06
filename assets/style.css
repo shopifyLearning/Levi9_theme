@@ -32,6 +32,7 @@
   display: flex;
   align-items: center;
   margin-top: 17px; /* Move form elements down by 3px */
+  margin-left: 20px;
 }
 
 .search-nav {
