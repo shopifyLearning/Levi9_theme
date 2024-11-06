@@ -1,0 +1,19 @@
+<!-- This case statement handles different types of media for a product -->
+{% case media.media_type %}
+    <!-- When the media type is 'image', it renders an img tag with the image URL at 1024x1024 resolution, using the alt text from the media's preview image, 
+    and applies Tailwind CSS classes for full width and height with object-cover. -->
+    {% when 'image' %}
+        <img src="{{ media | img_url: '1024x1024' }}" alt="{{ media.preview_image.alt }}" class="w-full h-full object-cover">
+    <!-- When the media type is 'external_video', it renders an external video tag with Tailwind CSS classes for full width and a height of 20rem, and object-cover. -->
+    {% when 'external_video' %}
+        {{ media | external_video_tag: class: 'w-full h-80 object-cover' }}
+    <!-- When the media type is 'video', it renders a video tag with controls enabled, applying Tailwind CSS classes for full width and height with object-cover. -->
+    {% when 'video' %}
+        {{ media | video_tag: controls: true, class: 'w-full h-full object-cover' }}
+    <!-- When the media type is 'model', it renders a model viewer tag. -->
+    {% when 'model' %}
+        {{ media | model_viewer_tag }}
+    <!-- For any other media type, it renders a generic media tag. -->
+    {% else %}
+        {{ media | media_tag }}
+{% endcase %}
