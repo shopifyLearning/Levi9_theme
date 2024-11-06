@@ -61,15 +61,15 @@
         "type": "announcement-bar",
         "settings": {
           "show_announcement": true,
-          "image": "shopify://shop_images/levi9.png",
-          "background": "#F4F4F4",
+          "image": "shopify://shop_images/logo_black.png",
+          "background": "#f4f4f4",
           "text_color": "#000000"
         }
       },
       "promotions": {
         "type": "promotions",
         "settings": {
-          "background": "#F4F4F4",
+          "background": "#f4f4f4",
           "text_color": "#000000",
           "text1": "Members: Free Shipping!",
           "text2": "Save Up to 40%",
