@@ -83,6 +83,11 @@
         "type": "shopify://apps/accessease/blocks/access_ease/bdf09e02-5b1c-43b5-b338-8f668ddea3a7",
         "disabled": false,
         "settings": {}
+      },
+      "10471075532548766236": {
+        "type": "shopify://apps/tipo-product-auction/blocks/app-embed-block/77eabb13-2cfa-4b28-b113-57ce3d979f51",
+        "disabled": false,
+        "settings": {}
       }
     }
   }
